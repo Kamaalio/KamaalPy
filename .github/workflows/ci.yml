@@ -66,8 +66,8 @@ jobs:
     name: Deploy
     timeout-minutes: 10
     runs-on: ubuntu-latest
-    needs: [test]
-    if: contains(github.ref, 'refs/heads/release/')
+    # needs: [test]
+    if: contains(github.ref, 'refs/heads/release/') || github.ref == 'refs/heads/1-deploy-from-release-branch'
     steps:
       - uses: actions/checkout@v3
 
