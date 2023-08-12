@@ -11,6 +11,8 @@ build:
     python3 -m build
 
 test:
+    #!/bin/bash
+
     . .venv/bin/activate
     pytest
 
@@ -19,6 +21,8 @@ upload:
     twine upload dist/*
 
 install-self:
+    #!/bin/bash
+
     . .venv/bin/activate
     pip install -e .
 
@@ -29,19 +33,26 @@ init-venv:
     just install-deps
 
 install-deps:
+    #!/bin/bash
+
     . .venv/bin/activate
     pip install -r requirements.txt
+
+bump-version:
+    #!/bin/bash
+
+    . .venv/bin/activate
+    . scripts/utils.bash
+
+    new_release_tag=$(extract_tag_from_release_branch)
+    python scripts/bump_version.py $new_release_tag
 
 check-if-tag-exists:
     #!/bin/bash
 
-    current_branch=$(git symbolic-ref --short HEAD)
-    splitted_current_branch=$(echo $current_branch | tr "/" "\n")
-    new_release_tag=""
-    for component in $splitted_current_branch
-    do
-        new_release_tag=$component
-    done
+    . scripts/utils.bash
+
+    new_release_tag=$(extract_tag_from_release_branch)
 
     version_pattern="^[0-9]+\.[0-9]+\.[0-9]+$"
     if [[ ! $new_release_tag =~ $version_pattern ]]
