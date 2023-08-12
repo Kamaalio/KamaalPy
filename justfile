@@ -88,6 +88,7 @@ check-if-tag-exists:
         exit 41
     fi
 
+    git fetch
     tags=$(git tag)
     for tag in $tags
     do
