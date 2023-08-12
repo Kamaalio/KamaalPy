@@ -81,3 +81,6 @@ jobs:
 
       - name: Initialize environment
         run: just init-venv
+
+      - name: Check if tag exists
+        run: just check-if-tag-exists
