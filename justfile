@@ -23,8 +23,12 @@ install-self:
     pip install -e .
 
 init-venv:
-    #!/bin/sh
-
     python3 -m venv .venv
+    . .venv/bin/activate
+
+    just install-deps
+    just install-self
+
+install-deps:
     . .venv/bin/activate
     pip install -r requirements.txt
