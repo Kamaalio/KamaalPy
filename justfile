@@ -58,15 +58,6 @@ bump-version:
     new_release_tag=$(extract_tag_from_release_branch)
     python scripts/bump_version.py $new_release_tag
 
-tag-and-push-release:
-    #!/bin/bash
-
-    . scripts/utils.bash
-
-    new_release_tag=$(extract_tag_from_release_branch)
-    git tag $new_release_tag
-    git push origin $new_release_tag
-
 assert-has-no-diffs:
     #!/bin/bash
 
