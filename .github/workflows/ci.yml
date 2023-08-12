@@ -84,3 +84,6 @@ jobs:
 
       - name: Check if tag exists
         run: just check-if-tag-exists
+
+      - name: Bump version
+        run: just bump-version
