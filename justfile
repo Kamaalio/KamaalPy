@@ -27,7 +27,6 @@ init-venv:
     . .venv/bin/activate
 
     just install-deps
-    just install-self
 
 install-deps:
     . .venv/bin/activate
