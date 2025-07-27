@@ -1,4 +1,3 @@
-from functools import reduce
 from typing import Iterable, TypeVar, Callable
 
 
@@ -36,11 +35,9 @@ def removed(items: list[ItemsTypeVar], index: int) -> list[ItemsTypeVar]:
 def group_by(
     items: Iterable[ItemsTypeVar], predicate: Callable[[ItemsTypeVar], GroupByKey]
 ) -> dict[GroupByKey, list[ItemsTypeVar]]:
-    return reduce(
-        lambda infos, info: {
-            **infos,
-            predicate(info): infos.get(predicate(info), []) + [info],
-        },
-        items,
-        {},
-    )
+    grouped_items: dict[GroupByKey, list[ItemsTypeVar]] = {}
+    for item in items:
+        key = predicate(item)
+        grouped_items[key] = grouped_items.get(key, []) + [item]
+
+    return grouped_items
