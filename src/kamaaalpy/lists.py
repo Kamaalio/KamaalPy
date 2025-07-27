@@ -1,7 +1,9 @@
+from functools import reduce
 from typing import Iterable, TypeVar, Callable
 
 
 ItemsTypeVar = TypeVar("ItemsTypeVar")
+GroupByKey = TypeVar("GroupByKey")
 
 
 def all_satisfy(
@@ -29,3 +31,16 @@ def removed(items: list[ItemsTypeVar], index: int) -> list[ItemsTypeVar]:
     new_list = items.copy()
     del new_list[index]
     return new_list
+
+
+def group_by(
+    items: Iterable[ItemsTypeVar], predicate: Callable[[ItemsTypeVar], GroupByKey]
+) -> dict[GroupByKey, list[ItemsTypeVar]]:
+    return reduce(
+        lambda infos, info: {
+            **infos,
+            predicate(info): infos.get(predicate(info), []) + [info],
+        },
+        items,
+        {},
+    )
