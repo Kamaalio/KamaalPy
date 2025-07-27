@@ -1,3 +1,4 @@
+from functools import reduce
 from typing import Iterable, TypeVar, Callable
 
 
@@ -39,5 +40,16 @@ def group_by(
     for item in items:
         key = predicate(item)
         grouped_items[key] = grouped_items.get(key, []) + [item]
+
+    return grouped_items
+
+
+def flat_group_by(
+    items: Iterable[ItemsTypeVar], predicate: Callable[[ItemsTypeVar], GroupByKey]
+) -> dict[GroupByKey, ItemsTypeVar]:
+    grouped_items: dict[GroupByKey, ItemsTypeVar] = {}
+    for item in items:
+        key = predicate(item)
+        grouped_items[key] = item
 
     return grouped_items

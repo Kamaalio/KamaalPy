@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "kamaalpy"
-version = "0.2.1"
+version = "0.3.0"
 authors = [{ name = "Kamaal Farah", email = "kamaal.f1@gmail.com" }]
 description = "A package with everything Python"
 readme = "README.md"
